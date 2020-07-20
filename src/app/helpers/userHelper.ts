@@ -12,7 +12,7 @@ export const loggedInUser = () => ({
     return this.loggedInUser.name;
   },
 
-  getId(): number {
+  getId(): string {
     return this.loggedInUser.userId;
   },
 
@@ -20,7 +20,9 @@ export const loggedInUser = () => ({
     const hasRole = this.loggedInUser.roles.some((role: string) => role === roleToCheck);
 
     if (!hasRole) {
-      throw new AccessDeniedError(`Access Denied. User does not have the role of ${roleToCheck}`);
+      throw new AccessDeniedError(
+        'Access Denied. User does not have access to perform this action',
+      );
     }
 
     return hasRole;
