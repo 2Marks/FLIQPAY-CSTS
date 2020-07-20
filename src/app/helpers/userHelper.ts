@@ -44,15 +44,15 @@ export const loggedInUser = () => ({
     return true;
   },
 
-  hasAllPermissions(rolesToCheck: string[]): boolean {
-    const seenPermissions = this.loggedInUser.permissions.filter((role: string) =>
+  hasAllRoles(rolesToCheck: string[]): boolean {
+    const seenRoles = this.loggedInUser.roles.filter((role: string) =>
       rolesToCheck.some((roleToCheck) => roleToCheck === role),
     );
-    const hasAllPermissions = seenPermissions.length === rolesToCheck.length;
+    const hasAllRoles = seenRoles.length === rolesToCheck.length;
 
-    if (!hasAllPermissions) {
+    if (!hasAllRoles) {
       throw new AccessDeniedError(
-        `Access Denied. User does not have all permissions to ${rolesToCheck.join(',')}`,
+        `Access Denied. User does not have all roles : ${rolesToCheck.join(',')}`,
       );
     }
 
