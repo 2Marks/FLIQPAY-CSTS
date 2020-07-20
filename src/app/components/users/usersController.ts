@@ -1,6 +1,16 @@
-import { CreateUserDTO, GetAllUsersDTO, GetOneUserDTO } from './usersInterface';
+import {
+  CreateUserDTO,
+  GetAllUsersDTO,
+  GetOneUserDTO,
+  ToggleUserStatusDTO,
+} from './usersInterface';
 import { validate, loggedInUser } from '../../helpers';
-import { createUserSchema, getAllUsersSchema, getOneUserSchema } from './usersSchema';
+import {
+  createUserSchema,
+  getAllUsersSchema,
+  getOneUserSchema,
+  toggleUserStatusSchema,
+} from './usersSchema';
 import { UserService } from './usersService';
 
 export class UserController {
@@ -37,6 +47,18 @@ export class UserController {
     return {
       data,
       message: 'User fetched successfully',
+    };
+  }
+
+  static async toggleUserStatus(params: ToggleUserStatusDTO) {
+    loggedInUser().authorizeRole('admin');
+
+    const value = validate(params, toggleUserStatusSchema);
+    const data = await UserService.toggleUserStatus(value);
+
+    return {
+      data,
+      message: `User ${params.action}d successfully`,
     };
   }
 }

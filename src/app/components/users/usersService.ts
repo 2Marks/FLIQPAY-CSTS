@@ -1,5 +1,11 @@
 import bcrypt from 'bcryptjs';
-import { CreateUserDTO, GetAllUsersDTO, GetOneUserDTO } from './usersInterface';
+import {
+  CreateUserDTO,
+  GetAllUsersDTO,
+  GetOneUserDTO,
+  ToggleUserStatusDTO,
+  UserStatusActions,
+} from './usersInterface';
 import { UserRepository } from './usersRepository';
 import {
   isTruthy,
@@ -53,5 +59,17 @@ export class UserService {
     }
 
     return user;
+  }
+
+  static async toggleUserStatus(params: ToggleUserStatusDTO) {
+    const user = await UserRepository.getById(params.id);
+
+    if (user === null) {
+      throw new ResourceNotFoundError(`User not found`);
+    }
+
+    return params.action === UserStatusActions.activate
+      ? UserRepository.activate(params.id)
+      : UserRepository.deactivate(params.id);
   }
 }

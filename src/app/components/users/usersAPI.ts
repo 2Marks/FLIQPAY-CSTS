@@ -11,4 +11,8 @@ router.get('/users', (req, res) =>
 
 router.get('/users/:id', (req, res) => APIHelper({ req, res, controller: UserController.getOne }));
 
+router.post('/users/:id/:action', (req, res) =>
+  APIHelper({ req, res, controller: UserController.toggleUserStatus }),
+);
+
 export const usersAPI = router;

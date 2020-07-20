@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import { UserStatusActions } from './usersInterface';
 
 export const createUserSchema = Joi.object({
   name: Joi.string().required(),
@@ -16,4 +17,9 @@ export const getAllUsersSchema = Joi.object({
 
 export const getOneUserSchema = Joi.object({
   id: Joi.string().required(),
+});
+
+export const toggleUserStatusSchema = Joi.object({
+  id: Joi.string().required(),
+  action: Joi.string().valid(...Object.values(UserStatusActions)),
 });

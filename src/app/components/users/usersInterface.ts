@@ -25,3 +25,13 @@ export interface GetAllUsersDTO {
 export interface GetOneUserDTO {
   id: number;
 }
+
+export interface ToggleUserStatusDTO {
+  id: string;
+  action: UserStatusActions;
+}
+
+export enum UserStatusActions {
+  activate = 'activate',
+  deactivate = 'deactivate',
+}
