@@ -16,6 +16,14 @@ export const loggedInUser = () => ({
     return this.loggedInUser.userId;
   },
 
+  isCustomer(): boolean {
+    return this.loggedInUser.roles.some((role: string) => role === 'customer');
+  },
+
+  isAgent(): boolean {
+    return this.loggedInUser.roles.some((role: string) => role === 'agent');
+  },
+
   authorizeRole(roleToCheck: string): boolean {
     const hasRole = this.loggedInUser.roles.some((role: string) => role === roleToCheck);
 
@@ -39,7 +47,9 @@ export const loggedInUser = () => ({
 
     if (!hasAnyRole) {
       throw new AccessDeniedError(
-        `Access Denied. User does not have any of the roles: ${rolesToCheck.join(',')}`,
+        `Access Denied. You need to have any of this roles (${rolesToCheck.join(
+          ',',
+        )}) to perform this action.`,
       );
     }
 
