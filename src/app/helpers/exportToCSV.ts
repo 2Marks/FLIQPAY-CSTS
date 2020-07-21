@@ -3,7 +3,7 @@ import { saveFile } from './saveFile';
 
 interface ExportToCSVDTO {
   data: any;
-  fields: string[];
+  fields: any[];
   name?: string;
 }
 export async function exportToCSV({
@@ -12,7 +12,7 @@ export async function exportToCSV({
   name,
 }: ExportToCSVDTO): Promise<{ fileName: string }> {
   const csvData = await parseAsync(data, { fields });
-  let fileName = name ? name : 'tams_downloads';
+  let fileName = name ? name : 'fliqpay_csts_downloads';
 
   if (!fileName.split('.').includes('csv')) {
     fileName = `${fileName}.csv`;
