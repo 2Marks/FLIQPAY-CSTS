@@ -18,6 +18,13 @@ import {
 
 export class UserService {
   static async create(user: CreateUserDTO) {
+    //check to ensure a customer cannot have another role asides the customer role
+    if (user.roles.includes('customer') && user.roles.length > 1) {
+      throw new UnprocessableEntityError(
+        'A user with customer role is not allowed to have other roles',
+      );
+    }
+
     const userWithEmail = await UserRepository.getByEmail(user.email);
 
     if (isTruthy(userWithEmail)) {
