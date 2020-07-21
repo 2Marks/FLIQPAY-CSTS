@@ -38,7 +38,7 @@ npm start
 
 ### Postman Docs link
 
-[API Doc Link](https://documenter.getpostman.com/view/484915/T1DmFexWversion=latest#5aacfa3a-2811-478a-ac4c-bd65e0013d87)
+[API Doc Link](https://documenter.getpostman.com/view/484915/T1DmFexW)
 
 #### Assumptions
 * All users except a customer can have multiple roles. e.g an admin can also act as an agent
